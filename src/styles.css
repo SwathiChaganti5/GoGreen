@@ -53,3 +53,17 @@
 @media(max-width:720px){.hero-media img{object-position:center 47%}}
 @media(min-width:901px){.services{grid-template-columns:minmax(0,.95fr) minmax(0,1.3fr);gap:6vw;align-items:center}.services>div:first-child{align-self:center;max-width:670px}.services h2{max-width:660px;font-size:clamp(50px,4vw,72px);line-height:1.04;letter-spacing:-1.5px}.benefits{align-self:center;grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch;gap:14px}.benefits>div{min-height:275px;display:flex;flex-direction:column;align-items:flex-start;gap:13px;padding:22px 18px;background:#ffffff08;border:1px solid #ffffff1c;border-top:2px solid #c79b55;border-radius:4px 4px 28px 4px}.benefit-icon{width:42px;height:42px;display:grid;place-items:center;border:1px solid #ffffff35;border-radius:50%;color:#e0c38f}.benefit-icon .icon{width:19px;height:19px}.benefits b{font-size:10px}.benefits h3{font-size:clamp(20px,1.65vw,26px);line-height:1.15;margin:0;min-height:2.3em}.benefits p{font-size:12px;line-height:1.65;margin:0;color:#c1d0c6}}
 @media(min-width:721px) and (max-width:900px){.services{align-items:center}.services>div:first-child{align-self:center}.benefits{align-self:center}}
+
+/* Subtle entrance motion as page sections and gallery photos enter view */
+[data-reveal]{opacity:0;transform:translate3d(0,24px,0);transition:opacity .75s ease,transform .75s cubic-bezier(.2,.7,.25,1)}
+[data-reveal].is-visible{opacity:1;transform:translate3d(0,0,0)}
+.gallery .photo[data-reveal="card"]{transform:translate3d(0,18px,0) scale(.985);transition:opacity .65s ease var(--reveal-delay,0ms),transform .65s cubic-bezier(.2,.7,.25,1) var(--reveal-delay,0ms),box-shadow .3s ease}
+.gallery .photo[data-reveal="card"].is-visible{transform:translate3d(0,0,0) scale(1)}
+@media(prefers-reduced-motion:reduce){[data-reveal],.gallery .photo[data-reveal="card"]{opacity:1;transform:none;transition:none}}
+
+/* Cinematic hero move: a slow push-in with a restrained orbital pan */
+.hero-media img{animation:heroCinematic 24s cubic-bezier(.18,.62,.26,1) both;transform-origin:center center;will-change:transform}
+@keyframes heroCinematic{0%{transform:scale(1.015) translate3d(0,0,0) rotate(0)}45%{transform:scale(1.075) translate3d(-.25%,-.1%,0) rotate(.25deg)}100%{transform:scale(1.14) translate3d(-.65%,-.35%,0) rotate(-.55deg)}}
+@media(max-width:720px){.hero-media img{animation-name:heroCinematicMobile;animation-duration:20s}}
+@keyframes heroCinematicMobile{0%{transform:scale(1.01) translate3d(0,0,0)}55%{transform:scale(1.05) translate3d(-.15%,-.08%,0)}100%{transform:scale(1.09) translate3d(-.3%,-.18%,0)}}
+@media(prefers-reduced-motion:reduce){.hero-media img{animation:none;transform:none;will-change:auto}}
